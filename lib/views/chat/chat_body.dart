@@ -72,10 +72,10 @@ class _ChatBodyState extends State<ChatBody> {
                         children: [
                           messages[index].text == ""
                               ? GestureDetector(
-                            onTap: (){
-                              _showUserDialog(context, messages[index]);
-                            },
-                                child: Container(
+                                  onTap: () {
+                                    _showUserDialog(context, messages[index]);
+                                  },
+                                  child: Container(
                                     height: 100,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
@@ -83,7 +83,7 @@ class _ChatBodyState extends State<ChatBody> {
                                                 "${messages[index].image}"),
                                             fit: BoxFit.contain)),
                                   ),
-                              )
+                                )
                               : Column(
                                   children: [
                                     SelectableText(
@@ -136,18 +136,20 @@ class _ChatBodyState extends State<ChatBody> {
           );
         });
   }
+
   _showUserDialog(context, Message userData) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          contentPadding: EdgeInsets.all(0),
-          backgroundColor: Colors.transparent,
-          content: Container(
-            height: 300,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: NetworkImage(userData.image),)),
-          ),
-        ));
+              contentPadding: EdgeInsets.all(0),
+              backgroundColor: Colors.transparent,
+              content: Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: NetworkImage(userData.image),
+                )),
+              ),
+            ));
   }
 }
