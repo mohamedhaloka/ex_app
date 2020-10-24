@@ -90,15 +90,20 @@ class _UsersChatState extends State<UsersChat> {
                               color: Colors.transparent,
                               child: Row(
                                 children: [
-                                  Container(
-                                      width: 60,
-                                      height: 60,
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  user[index].photo),
-                                              fit: BoxFit.cover))),
+                                  GestureDetector(
+                                    onTap: () {
+                                      _showUserDialog(context, user[index]);
+                                    },
+                                    child: Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    user[index].photo),
+                                                fit: BoxFit.cover))),
+                                  ),
                                   CustomSizedBox(wedNum: 0.04, heiNum: 0.0),
                                   Expanded(
                                       child: Column(
@@ -162,5 +167,39 @@ class _UsersChatState extends State<UsersChat> {
             child: CircularProgressIndicator(),
           );
         });
+  }
+
+  _showUserDialog(context, User userData) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              contentPadding: EdgeInsets.all(0),
+              content: Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(userData.photo),
+                        fit: BoxFit.cover)),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: customWidth(context, 1),
+                        height: 40,
+                        color: Colors.black45,
+                      ),
+                    ),
+                    Positioned(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(userData.name),
+                      ),
+                      bottom: 0,
+                    ),
+                  ],
+                ),
+              ),
+            ));
   }
 }

@@ -71,39 +71,49 @@ class _ChatBodyState extends State<ChatBody> {
                                 : CrossAxisAlignment.start,
                         children: [
                           messages[index].text == ""
-                              ? Container(
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              "${messages[index].image}"),
-                                          fit: BoxFit.contain)),
-                                )
-                              : Column(
-                                children: [
-                                  SelectableText(
-                                      messages[index].text,
-                                      textAlign:
-                                          widget.localId == messages[index].from
-                                              ? TextAlign.right
-                                              : TextAlign.left,
-                                      style: TextStyle(
-                                        color:
-                                            widget.localId == messages[index].from
-                                                ? Colors.white
-                                                : accentColor,
-                                      ),
-                                    ),
-                                  Visibility(child: Container(
+                              ? GestureDetector(
+                            onTap: (){
+                              _showUserDialog(context, messages[index]);
+                            },
+                                child: Container(
                                     height: 100,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             image: NetworkImage(
                                                 "${messages[index].image}"),
                                             fit: BoxFit.contain)),
-                                  ),visible: messages[index].image==null?false:true,)
-                                ],
-                              ),
+                                  ),
+                              )
+                              : Column(
+                                  children: [
+                                    SelectableText(
+                                      messages[index].text,
+                                      textAlign:
+                                          widget.localId == messages[index].from
+                                              ? TextAlign.right
+                                              : TextAlign.left,
+                                      style: TextStyle(
+                                        color: widget.localId ==
+                                                messages[index].from
+                                            ? Colors.white
+                                            : accentColor,
+                                      ),
+                                    ),
+                                    Visibility(
+                                      child: Container(
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    "${messages[index].image}"),
+                                                fit: BoxFit.contain)),
+                                      ),
+                                      visible: messages[index].image == null
+                                          ? false
+                                          : true,
+                                    ),
+                                  ],
+                                ),
                           Text(
                             messages[index].time,
                             style: TextStyle(
@@ -125,5 +135,19 @@ class _ChatBodyState extends State<ChatBody> {
             child: CircularProgressIndicator(),
           );
         });
+  }
+  _showUserDialog(context, Message userData) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          contentPadding: EdgeInsets.all(0),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 300,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(userData.image),)),
+          ),
+        ));
   }
 }

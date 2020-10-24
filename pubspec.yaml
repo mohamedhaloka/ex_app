@@ -34,6 +34,7 @@ dependencies:
   firebase_storage:
   easy_alert:
   web_socket_channel:
+  photo_view:
   http:
   shared_preferences:
   provider:
