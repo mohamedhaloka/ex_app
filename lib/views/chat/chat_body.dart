@@ -73,7 +73,7 @@ class _ChatBodyState extends State<ChatBody> {
                           messages[index].text == ""
                               ? GestureDetector(
                                   onTap: () {
-                                    _showUserDialog(context, messages[index]);
+                                    _showPhotoDialog(context, messages[index]);
                                   },
                                   child: Container(
                                     height: 100,
@@ -100,13 +100,19 @@ class _ChatBodyState extends State<ChatBody> {
                                       ),
                                     ),
                                     Visibility(
-                                      child: Container(
-                                        height: 100,
-                                        decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    "${messages[index].image}"),
-                                                fit: BoxFit.contain)),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          _showPhotoDialog(
+                                              context, messages[index]);
+                                        },
+                                        child: Container(
+                                          height: 100,
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      "${messages[index].image}"),
+                                                  fit: BoxFit.contain)),
+                                        ),
                                       ),
                                       visible: messages[index].image == null
                                           ? false
@@ -137,7 +143,7 @@ class _ChatBodyState extends State<ChatBody> {
         });
   }
 
-  _showUserDialog(context, Message userData) {
+  _showPhotoDialog(context, Message messageInfo) {
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -147,7 +153,7 @@ class _ChatBodyState extends State<ChatBody> {
                 height: 300,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                  image: NetworkImage(userData.image),
+                  image: NetworkImage(messageInfo.image),
                 )),
               ),
             ));

@@ -1,6 +1,5 @@
 import 'package:ex/views/about/view.dart';
 import 'package:ex/views/edit_profile/view.dart';
-import 'package:ex/views/history/view.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/material.dart';
 
