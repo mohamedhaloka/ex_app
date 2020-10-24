@@ -23,9 +23,6 @@ class _AccountButtonsState extends State<AccountButtons> {
               EditProfile()),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
           drawButton(
-              context, "History", "See Your Last Historys", HistoryView()),
-          CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
-          drawButton(
               context,
               "Notification",
               val ? "Notifications are enabled" : "Notifications are disabled",
