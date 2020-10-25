@@ -4,6 +4,7 @@ import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/chat/view.dart';
 import 'package:ex/widget/custom_sized_box.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,6 +82,9 @@ class _UsersChatState extends State<UsersChat> {
                             padding: EdgeInsets.only(right: 10, left: 10),
                             child: RaisedButton(
                               padding: EdgeInsets.all(10),
+                              onLongPress: () {
+                                _openChatDialog(context, user[index].id);
+                              },
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ChatView(
@@ -200,6 +204,27 @@ class _UsersChatState extends State<UsersChat> {
                   ],
                 ),
               ),
+            ));
+  }
+
+  _openChatDialog(context, chatUserId) {
+    showDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: Text("Do you want delete this chat?"),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Store().deleteChat(localId, chatUserId);
+                    },
+                    child: Text("Yes",style: TextStyle(color: Colors.red[900]),)),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Cancel")),
+              ],
             ));
   }
 }

@@ -4,5 +4,7 @@ class Message {
   String from;
   String image;
   String to;
-  Message({this.text, this.time, this.from,this.to,this.image});
+  String id;
+  Message({this.text, this.time, this.from,this.to,this.image,this.id
+  });
 }

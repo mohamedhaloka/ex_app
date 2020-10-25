@@ -99,4 +99,26 @@ class Store {
   editProfile(id, data) async {
     await _firebaseFireStore.collection(kUserCollection).doc(id).update(data);
   }
+
+  deleteMessage(id, anotherUserId, messageID) {
+    print("Done - Delete Message");
+    return _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(id)
+        .collection(kUsersChatCollection)
+        .doc(anotherUserId)
+        .collection(kMessagesCollection)
+        .doc(messageID)
+        .delete();
+  }
+
+  deleteChat(id, anotherUserId) {
+    print("Done - Delete Chat");
+    return _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(id)
+        .collection(kUsersChatCollection)
+        .doc(anotherUserId)
+        .delete();
+  }
 }
