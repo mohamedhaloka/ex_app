@@ -52,8 +52,10 @@ class _ChatViewState extends State<ChatView> {
         backgroundColor: Colors.black12,
         appBar: chatAppBar(context, widget.user),
         body: Column(
-          verticalDirection: VerticalDirection.up,
           children: [
+            Expanded(
+                child: ChatBody(
+                    user: widget.user, id: widget.user.id, localId: localId)),
             Container(
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
@@ -96,9 +98,6 @@ class _ChatViewState extends State<ChatView> {
                 ],
               ),
             ),
-            Expanded(
-                child: ChatBody(
-                    user: widget.user, id: widget.user.id, localId: localId)),
           ],
         ),
       ),
@@ -171,7 +170,6 @@ class _ChatViewState extends State<ChatView> {
       chooseAndUploadFile();
     });
   }
-
 
   Future chooseAndUploadFile() async {
     StorageReference storageReference = FirebaseStorage.instance

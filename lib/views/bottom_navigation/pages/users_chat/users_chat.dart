@@ -218,7 +218,10 @@ class _UsersChatState extends State<UsersChat> {
                       Navigator.pop(context);
                       Store().deleteChat(localId, chatUserId);
                     },
-                    child: Text("Yes",style: TextStyle(color: Colors.red[900]),)),
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(color: Colors.red[900]),
+                    )),
                 FlatButton(
                     onPressed: () {
                       Navigator.pop(context);
