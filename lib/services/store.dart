@@ -121,4 +121,20 @@ class Store {
         .doc(anotherUserId)
         .delete();
   }
+
+  deleteChatMessages(id, anotherUserId) {
+    print("Done - Delete Chat");
+    return _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(id)
+        .collection(kUsersChatCollection)
+        .doc(anotherUserId)
+        .collection(kMessagesCollection)
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.docs) {
+        ds.reference.delete();
+      }
+    });
+  }
 }

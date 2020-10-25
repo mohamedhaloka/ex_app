@@ -38,7 +38,7 @@ class _ChatBodyState extends State<ChatBody> {
             }
             return ListView.builder(
               shrinkWrap: true,
-              reverse: true,
+              reverse: false,
               itemBuilder: (context, index) {
                 return Align(
                   alignment: widget.localId == messages[index].from
@@ -94,7 +94,7 @@ class _ChatBodyState extends State<ChatBody> {
                                           image: DecorationImage(
                                               image: NetworkImage(
                                                   "${messages[index].image}"),
-                                              fit: BoxFit.contain)),
+                                              fit: BoxFit.cover)),
                                     ),
                                   )
                                 : Column(
@@ -124,7 +124,7 @@ class _ChatBodyState extends State<ChatBody> {
                                                 image: DecorationImage(
                                                     image: NetworkImage(
                                                         "${messages[index].image}"),
-                                                    fit: BoxFit.contain)),
+                                                    fit: BoxFit.cover)),
                                           ),
                                         ),
                                         visible: messages[index].image == null

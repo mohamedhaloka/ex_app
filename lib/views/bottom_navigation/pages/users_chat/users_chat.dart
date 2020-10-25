@@ -54,6 +54,7 @@ class _UsersChatState extends State<UsersChat> {
               userMessageDetails.add(Message(
                 text: data[kMessageTittle],
                 image: data[kMessageFile],
+                id: doc.id,
                 time: DateFormat('kk:mm').format(time.toDate()),
               ));
             }
@@ -217,6 +218,7 @@ class _UsersChatState extends State<UsersChat> {
                     onPressed: () {
                       Navigator.pop(context);
                       Store().deleteChat(localId, chatUserId);
+                      Store().deleteChatMessages(localId, chatUserId,);
                     },
                     child: Text(
                       "Yes",
