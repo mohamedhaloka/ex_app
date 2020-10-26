@@ -38,7 +38,8 @@ class SignUpController {
         kUserEmail: email,
         kUserLocalId: userData['localId'],
         kUserStatue: "Hey there! I am using EX",
-        kUserPhoto: "https://f.top4top.io/p_17582zi971.jpg"
+        kUserPhoto: "https://f.top4top.io/p_17582zi971.jpg",
+        kUserToken:userData['idToken'],
       });
       await FirebaseFirestore.instance
           .collection(kUserCollection)

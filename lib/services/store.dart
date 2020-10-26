@@ -23,6 +23,8 @@ class Store {
       mePhoto,
       userPhoto,
       dateTime,
+      meToken,
+      userToken,
       newMessageLocal,
       newMessage}) async {
     print("Done - Store Message");
@@ -36,6 +38,7 @@ class Store {
       kToUser: toLocalId,
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
+      kUserToken: meToken,
       kMessageTime: dateTime,
       kUserPhoto: userPhoto,
       kNewMessage: newMessageLocal
@@ -50,6 +53,7 @@ class Store {
       kUserName: username2,
       kToUser: toLocalId,
       kFromUser: fromLocalId,
+      kUserToken: userToken,
       kMessageTittle: messageTittle,
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,

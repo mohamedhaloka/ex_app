@@ -1,7 +1,9 @@
+import 'package:ex/provider/notification_statue.dart';
 import 'package:ex/views/about/view.dart';
 import 'package:ex/views/edit_profile/view.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../const.dart';
 
@@ -11,30 +13,33 @@ class AccountButtons extends StatefulWidget {
 }
 
 class _AccountButtonsState extends State<AccountButtons> {
-  bool val = true;
   @override
   Widget build(BuildContext context) {
+    var notificationStatue = Provider.of<NotificationStatue>(context);
     return Padding(
       padding: EdgeInsets.only(right: 10, left: 10),
       child: Column(
         children: [
           drawButton(context, "Edit Profile", "Tell us your preferences",
-              EditProfile()),
+              EditProfile(), notificationStatue),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
           drawButton(
               context,
               "Notification",
-              val ? "Notifications are enabled" : "Notifications are disabled",
-              null),
+              notificationStatue.notification
+                  ? "Notifications are enabled"
+                  : "Notifications are disabled",
+              null,
+              notificationStatue),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
-          drawButton(
-              context, "About ex", "A few words from the creators", AboutUS()),
+          drawButton(context, "About ex", "A few words from the creators",
+              AboutUS(), notificationStatue),
         ],
       ),
     );
   }
 
-  Widget drawButton(context, tittle, subTittle, Page) {
+  Widget drawButton(context, tittle, subTittle, page, notificationStatue) {
     return Container(
       width: customWidth(context, 1),
       height: 118,
@@ -44,7 +49,7 @@ class _AccountButtonsState extends State<AccountButtons> {
             ? null
             : () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => Page));
+                    .push(MaterialPageRoute(builder: (context) => page));
               },
         color: Colors.transparent,
         elevation: 0.0,
@@ -76,12 +81,10 @@ class _AccountButtonsState extends State<AccountButtons> {
             ),
             tittle == "Notification"
                 ? Switch(
-                    value: val,
+                    value: notificationStatue.notification,
                     activeColor: subAccentColor,
                     onChanged: (value) {
-                      setState(() {
-                        val = value;
-                      });
+                      notificationStatue.changeValOfNotification(value);
                     })
                 : Image.asset(
                     "assets/images/right-arrow.png",

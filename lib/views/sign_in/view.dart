@@ -1,5 +1,5 @@
 import 'package:ex/const.dart';
-import 'file:///C:/Users/laptop/IdeaProjects/ex/lib/widget/containerIcon.dart';
+import 'package:ex/widget/containerIcon.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/material.dart';
 

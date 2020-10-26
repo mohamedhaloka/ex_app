@@ -1,5 +1,6 @@
 import 'package:easy_alert/easy_alert.dart';
 import 'package:ex/const.dart';
+import 'package:ex/provider/notification_statue.dart';
 import 'package:ex/provider/user_data.dart';
 import 'package:ex/views/on_boarding/view.dart';
 import 'package:ex/views/sign_in/view.dart';
@@ -11,7 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -52,7 +52,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => UserData())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserData(),
+        ),
+        ChangeNotifierProvider(create: (context) => NotificationStatue())
+      ],
       child: MaterialApp(
         title: 'EX Chat',
         debugShowCheckedModeBanner: false,

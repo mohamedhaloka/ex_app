@@ -7,6 +7,7 @@ class User {
   String to;
   String statue;
   String id;
+  String token;
   User(
       {this.email,
       this.name,
@@ -14,6 +15,7 @@ class User {
       this.user2Name,
       this.photo,
       this.from,
-        this.statue,
+      this.statue,
+      this.token,
       this.to});
 }

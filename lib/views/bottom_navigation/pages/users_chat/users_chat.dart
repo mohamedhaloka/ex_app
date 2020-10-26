@@ -50,6 +50,7 @@ class _UsersChatState extends State<UsersChat> {
                   photo: data[kUserPhoto],
                   from: data[kFromUser],
                   to: data[kToUser],
+                  token: doc.data()[kUserToken],
                   id: doc.id));
               userMessageDetails.add(Message(
                 text: data[kMessageTittle],

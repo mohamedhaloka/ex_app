@@ -71,6 +71,7 @@ class _SearchFriendsState extends State<SearchFriends> {
                   from: doc.data()[kFromUser],
                   statue: doc.data()[kUserStatue],
                   to: doc.data()[kToUser],
+                  token: doc.data()[kUserToken],
                   id: doc.id,
                   photo: doc.data()[kUserPhoto],
                 ));

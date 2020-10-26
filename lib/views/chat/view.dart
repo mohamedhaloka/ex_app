@@ -1,11 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:ex/provider/notification_statue.dart';
+import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_alert/easy_alert.dart';
 import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/chat/chat_app_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:path/path.dart' as Path;
@@ -22,8 +28,11 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
-  String message, localId, toUserName, photo, userPhoto;
+  String message, localId, toUserName, photo, userPhoto, idToken;
   String _uploadedFileURL;
+  String serverToken =
+      "AAAAhtQmW4o:APA91bG9X9b9Lt6c5v9oh0-ToW7rLo41X99V_ryGibrFLNW1kxPL4FFQgr2yRB_tKrv1MD9KL2OMZ81Lvr0VIQjZiouOszHhwIh5xNLPCC2_oKIDCOWScOk3tU0R3L_74azs-x3zfEvn";
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
   File _image;
@@ -34,6 +43,7 @@ class _ChatViewState extends State<ChatView> {
       localId = sharedPreferences.getString("localId");
       toUserName = sharedPreferences.getString("displayName");
       photo = sharedPreferences.getString("photo");
+      idToken = sharedPreferences.getString("idToken");
     });
   }
 
@@ -93,7 +103,7 @@ class _ChatViewState extends State<ChatView> {
                     chooseFile();
                   }),
                   drawButton(Icons.send, () {
-                    _sendMessage();
+                    _sendMessage(context);
                   }),
                 ],
               ),
@@ -122,9 +132,12 @@ class _ChatViewState extends State<ChatView> {
     );
   }
 
-  _sendMessage() async {
+  _sendMessage(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      var notificationStatue =
+          Provider.of<NotificationStatue>(context, listen: false);
+      sendAndRetrieveMessage(widget.user.token);
       await FirebaseFirestore.instance
           .collection(kUserCollection)
           .doc(widget.user.id)
@@ -141,6 +154,8 @@ class _ChatViewState extends State<ChatView> {
           toLocalId: widget.user.id,
           username: widget.user.name,
           username2: toUserName,
+          meToken: idToken,
+          userToken: widget.user.token,
           mePhoto: photo,
           userPhoto: userPhoto,
           newMessage: true,
@@ -189,5 +204,48 @@ class _ChatViewState extends State<ChatView> {
       Alert.toast(context, "Your Photo has been uploaded",
           position: ToastPosition.center, duration: ToastDuration.long);
     });
+  }
+
+  Future<Map<String, dynamic>> sendAndRetrieveMessage(userToken) async {
+    print("HI");
+    print(userToken);
+    await firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(
+          sound: true, badge: true, alert: true, provisional: false),
+    );
+
+    await http.post(
+      'https://fcm.googleapis.com/fcm/send',
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=$serverToken',
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'notification': <String, dynamic>{
+            'body': '${widget.user.name}',
+            'title': '$message'
+          },
+          'priority': 'high',
+          'data': <String, dynamic>{
+            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+            'id': '1',
+            'status': 'done'
+          },
+          'to': userToken,
+        },
+      ),
+    );
+
+    final Completer<Map<String, dynamic>> completer =
+        Completer<Map<String, dynamic>>();
+
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        completer.complete(message);
+      },
+    );
+
+    return completer.future;
   }
 }
