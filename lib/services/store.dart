@@ -22,7 +22,9 @@ class Store {
       messageTittle,
       mePhoto,
       userPhoto,
-      dateTime}) async {
+      dateTime,
+      newMessageLocal,
+      newMessage}) async {
     print("Done - Store Message");
     await _firebaseFireStore
         .collection(kUserCollection)
@@ -35,7 +37,8 @@ class Store {
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
       kMessageTime: dateTime,
-      kUserPhoto: userPhoto
+      kUserPhoto: userPhoto,
+      kNewMessage: newMessageLocal
     });
 
     await _firebaseFireStore
@@ -49,8 +52,18 @@ class Store {
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
       kMessageTime: dateTime,
-      kUserPhoto: mePhoto
+      kUserPhoto: mePhoto,
+      kNewMessage: newMessage
     });
+  }
+
+  updateUsersChatMessages(localId, anotherUserId) async {
+    await _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(localId)
+        .collection(kUsersChatCollection)
+        .doc(anotherUserId)
+        .update({kNewMessage: false});
   }
 
   storeMessage(id, data, anotherUserId) async {

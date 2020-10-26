@@ -54,6 +54,7 @@ class _UsersChatState extends State<UsersChat> {
               userMessageDetails.add(Message(
                 text: data[kMessageTittle],
                 image: data[kMessageFile],
+                newMessage: data[kNewMessage],
                 id: doc.id,
                 time: DateFormat('kk:mm').format(time.toDate()),
               ));
@@ -87,6 +88,8 @@ class _UsersChatState extends State<UsersChat> {
                                 _openChatDialog(context, user[index].id);
                               },
                               onPressed: () {
+                                Store().updateUsersChatMessages(
+                                    localId, user[index].id);
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => ChatView(
                                           user: user[index],
@@ -117,12 +120,28 @@ class _UsersChatState extends State<UsersChat> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      Text(
-                                        "${user[index].name}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: subAccentColor),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "${user[index].name}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: subAccentColor),
+                                          ),
+                                          Container(
+                                            width: 10,
+                                            height: 10,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: userMessageDetails[index]
+                                                        .newMessage
+                                                    ? accentColor
+                                                    : Colors.transparent),
+                                          )
+                                        ],
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -218,7 +237,10 @@ class _UsersChatState extends State<UsersChat> {
                     onPressed: () {
                       Navigator.pop(context);
                       Store().deleteChat(localId, chatUserId);
-                      Store().deleteChatMessages(localId, chatUserId,);
+                      Store().deleteChatMessages(
+                        localId,
+                        chatUserId,
+                      );
                     },
                     child: Text(
                       "Yes",

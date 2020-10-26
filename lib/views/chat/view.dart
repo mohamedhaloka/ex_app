@@ -142,7 +142,9 @@ class _ChatViewState extends State<ChatView> {
           username: widget.user.name,
           username2: toUserName,
           mePhoto: photo,
-          userPhoto: userPhoto);
+          userPhoto: userPhoto,
+          newMessage: true,
+          newMessageLocal: false);
 
       Store().storeMessage(
           localId,

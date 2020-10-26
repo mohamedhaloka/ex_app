@@ -22,6 +22,7 @@ const String kMessagesCollection = "messages";
 const String kMessageTittle = "message text";
 const String kMessageTime = "message time";
 const String kMessageFile = "message file";
+const String kNewMessage = "new message";
 const String kToUser = "to";
 const String kFromUser = "from";
 

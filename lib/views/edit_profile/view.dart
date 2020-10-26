@@ -141,9 +141,7 @@ class _EditProfileState extends State<EditProfile> {
             password,
             photoUrl,
             email,
-            {
-              kUserStatue: statueDes,
-            },
+            {kUserStatue: statueDes, kUserName: userData.userName},
             context,
             statueDes);
 
