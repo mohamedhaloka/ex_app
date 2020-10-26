@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/bottom_navigation/view.dart';
@@ -33,13 +33,16 @@ class SignUpController {
       sharedPreferences.setString('email', userData['email']);
       sharedPreferences.setString('localId', userData['localId']);
       sharedPreferences.setBool("seen", true);
+      FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+      String _fcmToken = await _firebaseMessaging.getToken();
+      sharedPreferences.setString('fcmToken', _fcmToken);
       Store().storeUserDate(userData['localId'], {
         kUserName: userData['displayName'],
         kUserEmail: email,
         kUserLocalId: userData['localId'],
         kUserStatue: "Hey there! I am using EX",
         kUserPhoto: "https://f.top4top.io/p_17582zi971.jpg",
-        kUserToken:userData['idToken'],
+        kUserFCMToken: _fcmToken,
       });
       await FirebaseFirestore.instance
           .collection(kUserCollection)

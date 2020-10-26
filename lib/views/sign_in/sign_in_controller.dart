@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ex/const.dart';
+import 'package:ex/services/store.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ex/views/sign_in/sign_in_model.dart';
 import 'package:ex/views/sign_in_again/view.dart';
@@ -29,6 +31,9 @@ class SignInController {
       sharedPreferences.setString('expiresIn', userData['expiresIn']);
       sharedPreferences.setString('email', userData['email']);
       sharedPreferences.setBool("seen", true);
+      FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+      String _fcmToken = await _firebaseMessaging.getToken();
+      sharedPreferences.setString('fcmToken', _fcmToken);
       await FirebaseFirestore.instance
           .collection(kUserCollection)
           .doc(userData['localId'])
@@ -37,6 +42,9 @@ class SignInController {
         sharedPreferences.setString('photo', value.get(kUserPhoto));
         sharedPreferences.setString('statue', value.get(kUserStatue));
         print(value.get(kUserPhoto));
+      });
+      Store().editProfile(userData['localId'], {
+        kUserFCMToken: _fcmToken,
       });
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => SignInAgain()));

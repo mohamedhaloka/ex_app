@@ -38,7 +38,7 @@ class Store {
       kToUser: toLocalId,
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
-      kUserToken: meToken,
+      kUserFCMToken: userToken,
       kMessageTime: dateTime,
       kUserPhoto: userPhoto,
       kNewMessage: newMessageLocal
@@ -53,7 +53,7 @@ class Store {
       kUserName: username2,
       kToUser: toLocalId,
       kFromUser: fromLocalId,
-      kUserToken: userToken,
+      kUserFCMToken: meToken,
       kMessageTittle: messageTittle,
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,

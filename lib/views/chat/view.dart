@@ -28,7 +28,7 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
-  String message, localId, toUserName, photo, userPhoto, idToken;
+  String message, localId, toUserName, photo, userPhoto, fcmToken;
   String _uploadedFileURL;
   String serverToken =
       "AAAAhtQmW4o:APA91bG9X9b9Lt6c5v9oh0-ToW7rLo41X99V_ryGibrFLNW1kxPL4FFQgr2yRB_tKrv1MD9KL2OMZ81Lvr0VIQjZiouOszHhwIh5xNLPCC2_oKIDCOWScOk3tU0R3L_74azs-x3zfEvn";
@@ -43,14 +43,14 @@ class _ChatViewState extends State<ChatView> {
       localId = sharedPreferences.getString("localId");
       toUserName = sharedPreferences.getString("displayName");
       photo = sharedPreferences.getString("photo");
-      idToken = sharedPreferences.getString("idToken");
+      fcmToken = sharedPreferences.getString("fcmToken");
     });
   }
 
   @override
   void initState() {
     super.initState();
-    print(widget.user.name);
+    print(widget.user.token);
     getLocalId();
   }
 
@@ -137,7 +137,6 @@ class _ChatViewState extends State<ChatView> {
       _formKey.currentState.save();
       var notificationStatue =
           Provider.of<NotificationStatue>(context, listen: false);
-      sendAndRetrieveMessage(widget.user.token);
       await FirebaseFirestore.instance
           .collection(kUserCollection)
           .doc(widget.user.id)
@@ -154,13 +153,12 @@ class _ChatViewState extends State<ChatView> {
           toLocalId: widget.user.id,
           username: widget.user.name,
           username2: toUserName,
-          meToken: idToken,
+          meToken: fcmToken,
           userToken: widget.user.token,
           mePhoto: photo,
           userPhoto: userPhoto,
           newMessage: true,
           newMessageLocal: false);
-
       Store().storeMessage(
           localId,
           {
@@ -171,6 +169,8 @@ class _ChatViewState extends State<ChatView> {
             kMessageFile: _uploadedFileURL
           },
           widget.user.id);
+
+      sendAndRetrieveMessage(widget.user.token);
 
       setState(() {
         controller.text = "";
@@ -223,8 +223,8 @@ class _ChatViewState extends State<ChatView> {
       body: jsonEncode(
         <String, dynamic>{
           'notification': <String, dynamic>{
-            'body': '${widget.user.name}',
-            'title': '$message'
+            'body': '$message',
+            'title': '${widget.user.name}'
           },
           'priority': 'high',
           'data': <String, dynamic>{
