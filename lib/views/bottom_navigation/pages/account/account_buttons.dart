@@ -22,7 +22,7 @@ class _AccountButtonsState extends State<AccountButtons> {
               EditProfile()),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
           drawButton(
-              context, "About ex", "A few words from the creators", AboutUS()),
+              context, "About ex", "A few words from the creators", AboutAppView(doc: 0,)),
         ],
       ),
     );

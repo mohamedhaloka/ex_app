@@ -1,9 +1,7 @@
-import 'package:ex/views/terms_and_conditions/view.dart';
+import 'package:ex/views/about/view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../privacy_policy/view.dart';
 
 class TermsAndPolicy extends StatelessWidget {
   @override
@@ -21,7 +19,9 @@ class TermsAndPolicy extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TermsAndConditions()));
+                          builder: (context) => AboutAppView(
+                                doc: 2,
+                              )));
                 },
               style: TextStyle(
                   color: Colors.grey[800],
@@ -32,8 +32,12 @@ class TermsAndPolicy extends StatelessWidget {
               text: 'Privacy Policy',
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AboutAppView(
+                                doc: 1,
+                              )));
                 },
               style: TextStyle(
                   color: Colors.grey[800],

@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import '../../const.dart';
 import '../../widget/custom_app_bar.dart';
 
-class AboutUS extends StatelessWidget {
+class AboutAppView extends StatelessWidget {
+  AboutAppView({@required this.doc});
+  int doc;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +41,11 @@ class AboutUS extends StatelessWidget {
                           var data = doc.data();
                           aboutApp.add(AboutApp(text: data['text']));
                         }
-                        return SelectableText("${aboutApp[0].text}");
+                        return SelectableText(doc == 0
+                            ? "${aboutApp[0].text}"
+                            : doc == 1
+                                ? "${aboutApp[1].text}"
+                                : "${aboutApp[2].text}");
                       }
                       return Center(
                         child: CircularProgressIndicator(),
