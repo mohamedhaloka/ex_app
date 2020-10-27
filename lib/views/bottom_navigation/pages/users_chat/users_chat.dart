@@ -229,11 +229,12 @@ class _UsersChatState extends State<UsersChat> {
                     ),
                     Positioned(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(userData.name),
+                            CustomSizedBox(wedNum: 0.1, heiNum: 0.0),
                             Row(
                               children: [
                                 IconButton(

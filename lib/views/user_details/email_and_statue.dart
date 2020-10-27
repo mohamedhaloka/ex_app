@@ -21,9 +21,18 @@ class EmailAndStatue extends StatelessWidget {
             style: TextStyle(
                 color: accentColor, fontWeight: FontWeight.bold, fontSize: 20),
           ),
-          Text(
-            "$userStatue",
-            style: TextStyle(fontSize: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "$userStatue",
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                "Statue",
+                style: TextStyle(fontSize: 14, color: Colors.grey[400]),
+              ),
+            ],
           ),
           Divider(
             color: primaryColor,
