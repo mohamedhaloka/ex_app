@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:ex/provider/notification_statue.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_alert/easy_alert.dart';
@@ -11,7 +10,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:path/path.dart' as Path;
@@ -135,42 +133,44 @@ class _ChatViewState extends State<ChatView> {
   _sendMessage(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      var notificationStatue =
-          Provider.of<NotificationStatue>(context, listen: false);
-      await FirebaseFirestore.instance
-          .collection(kUserCollection)
-          .doc(widget.user.id)
-          .get()
-          .then((value) async {
-        setState(() {
-          userPhoto = value.get(kUserPhoto);
+      if (message.isNotEmpty) {
+        await FirebaseFirestore.instance
+            .collection(kUserCollection)
+            .doc(widget.user.id)
+            .get()
+            .then((value) async {
+          setState(() {
+            userPhoto = value.get(kUserPhoto);
+          });
         });
-      });
-      Store().storeUsersChatMessage(localId, widget.user.id,
-          dateTime: dateTime,
-          fromLocalId: localId,
-          messageTittle: message,
-          toLocalId: widget.user.id,
-          username: widget.user.name,
-          username2: toUserName,
-          meToken: fcmToken,
-          userToken: widget.user.token,
-          mePhoto: photo,
-          userPhoto: userPhoto,
-          newMessage: true,
-          newMessageLocal: false);
-      Store().storeMessage(
-          localId,
-          {
-            kMessageTittle: message,
-            kMessageTime: dateTime,
-            kFromUser: localId,
-            kToUser: widget.user.id,
-            kMessageFile: _uploadedFileURL
-          },
-          widget.user.id);
+        Store().storeUsersChatMessage(localId, widget.user.id,
+            dateTime: dateTime,
+            fromLocalId: localId,
+            messageTittle: message,
+            toLocalId: widget.user.id,
+            username: widget.user.name,
+            username2: toUserName,
+            meToken: fcmToken,
+            userToken: widget.user.token,
+            mePhoto: photo,
+            userPhoto: userPhoto,
+            newMessage: true,
+            newMessageLocal: false);
+        Store().storeMessage(
+            localId,
+            {
+              kMessageTittle: message,
+              kMessageTime: dateTime,
+              kFromUser: localId,
+              kToUser: widget.user.id,
+              kMessageFile: _uploadedFileURL
+            },
+            widget.user.id);
 
-      sendAndRetrieveMessage(widget.user.token);
+        sendAndRetrieveMessage(widget.user.token);
+      } else {
+        return;
+      }
 
       setState(() {
         controller.text = "";
@@ -184,11 +184,11 @@ class _ChatViewState extends State<ChatView> {
       setState(() {
         _image = image;
       });
-      chooseAndUploadFile();
+      uploadFile();
     });
   }
 
-  Future chooseAndUploadFile() async {
+  Future uploadFile() async {
     StorageReference storageReference = FirebaseStorage.instance
         .ref()
         .child('$localId/userFiles/${Path.basename(_image.path)}}');
@@ -224,7 +224,7 @@ class _ChatViewState extends State<ChatView> {
         <String, dynamic>{
           'notification': <String, dynamic>{
             'body': '$message',
-            'title': '${widget.user.name}'
+            'title': '$toUserName'
           },
           'priority': 'high',
           'data': <String, dynamic>{

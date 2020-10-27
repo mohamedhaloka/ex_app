@@ -1,4 +1,3 @@
-import 'package:ex/provider/notification_statue.dart';
 import 'package:ex/views/about/view.dart';
 import 'package:ex/views/edit_profile/view.dart';
 import 'package:ex/widget/custom_sized_box.dart';
@@ -15,31 +14,21 @@ class AccountButtons extends StatefulWidget {
 class _AccountButtonsState extends State<AccountButtons> {
   @override
   Widget build(BuildContext context) {
-    var notificationStatue = Provider.of<NotificationStatue>(context);
     return Padding(
       padding: EdgeInsets.only(right: 10, left: 10),
       child: Column(
         children: [
           drawButton(context, "Edit Profile", "Tell us your preferences",
-              EditProfile(), notificationStatue),
+              EditProfile()),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
           drawButton(
-              context,
-              "Notification",
-              notificationStatue.notification
-                  ? "Notifications are enabled"
-                  : "Notifications are disabled",
-              null,
-              notificationStatue),
-          CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
-          drawButton(context, "About ex", "A few words from the creators",
-              AboutUS(), notificationStatue),
+              context, "About ex", "A few words from the creators", AboutUS()),
         ],
       ),
     );
   }
 
-  Widget drawButton(context, tittle, subTittle, page, notificationStatue) {
+  Widget drawButton(context, tittle, subTittle, page) {
     return Container(
       width: customWidth(context, 1),
       height: 118,
@@ -79,18 +68,11 @@ class _AccountButtonsState extends State<AccountButtons> {
                 ],
               ),
             ),
-            tittle == "Notification"
-                ? Switch(
-                    value: notificationStatue.notification,
-                    activeColor: subAccentColor,
-                    onChanged: (value) {
-                      notificationStatue.changeValOfNotification(value);
-                    })
-                : Image.asset(
-                    "assets/images/right-arrow.png",
-                    width: 40,
-                    color: Colors.grey[400],
-                  )
+            Image.asset(
+              "assets/images/right-arrow.png",
+              width: 40,
+              color: Colors.grey[400],
+            )
           ],
         ),
       ),

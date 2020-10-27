@@ -1,6 +1,5 @@
 import 'package:easy_alert/easy_alert.dart';
 import 'package:ex/const.dart';
-import 'package:ex/provider/notification_statue.dart';
 import 'package:ex/provider/user_data.dart';
 import 'package:ex/views/on_boarding/view.dart';
 import 'package:ex/views/sign_in/view.dart';
@@ -56,7 +55,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => UserData(),
         ),
-        ChangeNotifierProvider(create: (context) => NotificationStatue())
       ],
       child: MaterialApp(
         title: 'EX Chat',
