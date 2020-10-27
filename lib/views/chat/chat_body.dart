@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ex/models/message_model.dart';
 import 'package:ex/models/user_model.dart';
@@ -18,6 +20,16 @@ class ChatBody extends StatefulWidget {
 }
 
 class _ChatBodyState extends State<ChatBody> {
+  ScrollController _scrollController = ScrollController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Timer(Duration(milliseconds: 300), () {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -38,7 +50,8 @@ class _ChatBodyState extends State<ChatBody> {
             }
             return ListView.builder(
               shrinkWrap: true,
-              reverse: false,
+              // reverse: true,
+              controller: _scrollController,
               itemBuilder: (context, index) {
                 return Align(
                   alignment: widget.localId == messages[index].from
