@@ -26,6 +26,8 @@ dependencies:
   cloud_firestore:
   firebase_core:
   firebase_messaging:
+  url_launcher:
+  share:
 
 dev_dependencies:
   flutter_test:

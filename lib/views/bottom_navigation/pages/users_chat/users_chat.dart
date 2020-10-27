@@ -3,11 +3,13 @@ import 'package:ex/models/message_model.dart';
 import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/chat/view.dart';
+import 'package:ex/views/user_details/view.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../const.dart';
 
@@ -49,6 +51,8 @@ class _UsersChatState extends State<UsersChat> {
                   name: data[kUserName],
                   photo: data[kUserPhoto],
                   from: data[kFromUser],
+                  statue: data[kUserStatue],
+                  email: data[kUserEmail],
                   to: data[kToUser],
                   token: data[kUserFCMToken],
                   id: doc.id));
@@ -226,7 +230,41 @@ class _UsersChatState extends State<UsersChat> {
                     Positioned(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(userData.name),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(userData.name),
+                            Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.message),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Store().updateUsersChatMessages(
+                                        localId, userData.id);
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                            builder: (context) => ChatView(
+                                                  user: userData,
+                                                )));
+                                  },
+                                  color: accentColor,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.info_outline_rounded),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                UserDetailsView(userData)));
+                                  },
+                                  color: accentColor,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                       bottom: 0,
                     ),

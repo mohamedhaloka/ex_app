@@ -26,7 +26,14 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
-  String message, localId, toUserName, photo, userPhoto, fcmToken;
+  String message,
+      localId,
+      toUserName,
+      photo,
+      userPhoto,
+      fcmToken,
+      statue,
+      email;
   String _uploadedFileURL;
   String serverToken =
       "AAAAhtQmW4o:APA91bG9X9b9Lt6c5v9oh0-ToW7rLo41X99V_ryGibrFLNW1kxPL4FFQgr2yRB_tKrv1MD9KL2OMZ81Lvr0VIQjZiouOszHhwIh5xNLPCC2_oKIDCOWScOk3tU0R3L_74azs-x3zfEvn";
@@ -42,6 +49,8 @@ class _ChatViewState extends State<ChatView> {
       toUserName = sharedPreferences.getString("displayName");
       photo = sharedPreferences.getString("photo");
       fcmToken = sharedPreferences.getString("fcmToken");
+      statue = sharedPreferences.getString("statue");
+      email = sharedPreferences.getString("email");
     });
   }
 
@@ -151,8 +160,12 @@ class _ChatViewState extends State<ChatView> {
             toLocalId: widget.user.id,
             username: widget.user.name,
             username2: toUserName,
+            meEmail: email,
+            userEmail: widget.user.email,
             meToken: fcmToken,
             userToken: widget.user.token,
+            userStatue: widget.user.statue,
+            meStatue: statue,
             mePhoto: photo,
             userPhoto: userPhoto,
             newMessage: true,

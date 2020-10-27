@@ -25,8 +25,9 @@ class _ChatBodyState extends State<ChatBody> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(milliseconds: 300), () {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    Timer(Duration(milliseconds: 500), () {
+      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 100), curve: Curves.easeOut);
     });
   }
 

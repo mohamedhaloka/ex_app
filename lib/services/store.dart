@@ -24,6 +24,10 @@ class Store {
       userPhoto,
       dateTime,
       meToken,
+        meEmail,
+        userEmail,
+      userStatue,
+      meStatue,
       userToken,
       newMessageLocal,
       newMessage}) async {
@@ -38,6 +42,8 @@ class Store {
       kToUser: toLocalId,
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
+      kUserEmail:userEmail,
+      kUserStatue: userStatue,
       kUserFCMToken: userToken,
       kMessageTime: dateTime,
       kUserPhoto: userPhoto,
@@ -55,6 +61,8 @@ class Store {
       kFromUser: fromLocalId,
       kUserFCMToken: meToken,
       kMessageTittle: messageTittle,
+      kUserEmail:meEmail,
+      kUserStatue: meStatue,
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,
       kNewMessage: newMessage
