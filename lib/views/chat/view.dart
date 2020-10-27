@@ -68,7 +68,7 @@ class _ChatViewState extends State<ChatView> {
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
               width: customWidth(context, 1),
-              height: 60,
+              height: 55,
               decoration: BoxDecoration(
                 color: Colors.white12,
                 borderRadius: BorderRadius.circular(40),
@@ -114,14 +114,15 @@ class _ChatViewState extends State<ChatView> {
 
   drawButton(icon, onPress) {
     return Container(
-      width: 50,
-      height: 50,
+      width: 40,
+      height: 40,
       decoration: BoxDecoration(color: Colors.black, shape: BoxShape.circle),
       child: RaisedButton(
         onPressed: onPress,
         elevation: 0.0,
         child: Icon(
           icon,
+          size: 15,
           color: accentColor,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
@@ -133,7 +134,7 @@ class _ChatViewState extends State<ChatView> {
   _sendMessage(context) async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      if (message.isNotEmpty) {
+      if (message.isNotEmpty || _uploadedFileURL.isNotEmpty) {
         await FirebaseFirestore.instance
             .collection(kUserCollection)
             .doc(widget.user.id)

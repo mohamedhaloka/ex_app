@@ -149,15 +149,23 @@ class _UsersChatState extends State<UsersChat> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Expanded(
-                                            child: Text(
-                                                userMessageDetails[index]
-                                                            .text ==
-                                                        ""
-                                                    ? "تم إرسال صورة"
-                                                    : "${userMessageDetails[index].text}",
-                                                maxLines: 1,
-                                                overflow:
-                                                    TextOverflow.ellipsis),
+                                            child: userMessageDetails[index]
+                                                        .text ==
+                                                    ""
+                                                ? Row(
+                                                    children: [
+                                                      Text("تم إرسال صورة",
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                                      Icon(Icons.photo)
+                                                    ],
+                                                  )
+                                                : Text(
+                                                    "${userMessageDetails[index].text}",
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis),
                                           ),
                                           Text(
                                             "${userMessageDetails[index].time}",
