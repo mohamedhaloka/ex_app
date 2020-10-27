@@ -32,7 +32,6 @@ class _UsersChatState extends State<UsersChat> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getLocalId();
   }
