@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 
 import '../../const.dart';
 
-chatAppBar(context, User user) {
-
+chatAppBar(context, User user, localId, email, name) {
   return AppBar(
     elevation: 0.0,
     backgroundColor: Colors.transparent,
     title: GestureDetector(
-      onTap: () => Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => UserDetailsView(user))),
+      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => UserDetailsView(user, localId, email, name))),
       child: Row(
         children: [
           Container(

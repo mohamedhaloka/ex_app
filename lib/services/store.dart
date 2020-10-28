@@ -24,8 +24,8 @@ class Store {
       userPhoto,
       dateTime,
       meToken,
-        meEmail,
-        userEmail,
+      meEmail,
+      userEmail,
       userStatue,
       meStatue,
       userToken,
@@ -42,7 +42,7 @@ class Store {
       kToUser: toLocalId,
       kFromUser: fromLocalId,
       kMessageTittle: messageTittle,
-      kUserEmail:userEmail,
+      kUserEmail: userEmail,
       kUserStatue: userStatue,
       kUserFCMToken: userToken,
       kMessageTime: dateTime,
@@ -61,7 +61,7 @@ class Store {
       kFromUser: fromLocalId,
       kUserFCMToken: meToken,
       kMessageTittle: messageTittle,
-      kUserEmail:meEmail,
+      kUserEmail: meEmail,
       kUserStatue: meStatue,
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,
@@ -161,5 +161,18 @@ class Store {
         ds.reference.delete();
       }
     });
+  }
+
+  storeUserReports(id, data) {
+    return _firebaseFireStore.collection(kReportsCollection).doc(id).set(data);
+  }
+
+  storeUserReportLogs(id, data) {
+    return _firebaseFireStore
+        .collection(kReportsCollection)
+        .doc(id)
+        .collection(kReportsLogsCollection)
+        .doc()
+        .set(data);
   }
 }

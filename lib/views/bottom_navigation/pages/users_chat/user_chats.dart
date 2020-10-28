@@ -20,20 +20,21 @@ class UsersChat extends StatefulWidget {
 }
 
 class _UsersChatState extends State<UsersChat> {
-  String localId, name;
+  String localId, name, email;
 
-  getLocalId() async {
+  getUserData() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       localId = sharedPreferences.getString('localId');
       name = sharedPreferences.getString('displayName');
+      email = sharedPreferences.getString('email');
     });
   }
 
   @override
   void initState() {
     super.initState();
-    getLocalId();
+    getUserData();
   }
 
   @override
@@ -107,7 +108,11 @@ class _UsersChatState extends State<UsersChat> {
                                   GestureDetector(
                                     onTap: () {
                                       UserChatsFunctions().showUserDialog(
-                                          context, user[index], localId);
+                                          context,
+                                          user[index],
+                                          localId,
+                                          name,
+                                          email);
                                     },
                                     child: Container(
                                         width: 60,

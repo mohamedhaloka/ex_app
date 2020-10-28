@@ -1,12 +1,21 @@
+import 'package:easy_alert/easy_alert.dart';
 import 'package:ex/const.dart';
 import 'package:ex/models/user_model.dart';
+import 'package:ex/services/store.dart';
+import 'package:ex/views/bottom_navigation/pages/users_chat/view.dart';
 import 'package:ex/views/user_details/email_and_statue.dart';
+import 'package:ex/views/user_details/user_details_buttons.dart';
+import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
 class UserDetailsView extends StatelessWidget {
-  UserDetailsView(this.userDetails);
+  UserDetailsView(this.userDetails, this.localId, this.email, this.name);
   User userDetails;
+  String localId;
+  String email;
+  String name;
+  var dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,7 +26,8 @@ class UserDetailsView extends StatelessWidget {
           slivers: [
             SliverAppBar(
               pinned: true,
-              floating: false,
+              floating: true,
+              centerTitle: false,
               expandedHeight: customHeight(context, 0.4),
               actions: [
                 IconButton(
@@ -47,6 +57,26 @@ class UserDetailsView extends StatelessWidget {
                     EmailAndStatue(
                       userEmail: userDetails.email,
                       userStatue: userDetails.statue,
+                    ),
+                    CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
+                    UserDetailsButton(
+                      tittle: "Report",
+                      icon: Icons.report_gmailerrorred_rounded,
+                      onTap: () {
+                        Store().storeUserReports(localId,
+                            {kFromUserEmail: email, kFromUserName: name});
+
+                        Store().storeUserReportLogs(localId, {
+                          kToUserEmail: userDetails.email,
+                          kFromUserEmail: email,
+                          kToUserName: userDetails.name,
+                          kFromUserName: name,
+                          kReportTime: dateTime
+                        });
+                        Alert.toast(context, "Send report successfully",
+                            position: ToastPosition.bottom,
+                            duration: ToastDuration.long);
+                      },
                     )
                   ],
                 ),

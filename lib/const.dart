@@ -26,6 +26,15 @@ const String kNewMessage = "new message";
 const String kToUser = "to";
 const String kFromUser = "from";
 
+//MessageCollection
+const String kReportsCollection = "reports";
+const String kReportsLogsCollection = "reports log";
+const String kToUserEmail = "to email";
+const String kFromUserEmail = "from email";
+const String kToUserName = "to name";
+const String kFromUserName = "from name";
+const String kReportTime = "report time";
+
 customHeight(context, heiNum) {
   return MediaQuery.of(context).size.height * heiNum;
 }

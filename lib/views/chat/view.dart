@@ -33,7 +33,7 @@ class _ChatViewState extends State<ChatView> {
       userPhoto,
       fcmToken,
       statue,
-      email;
+      email,name;
   String _uploadedFileURL;
   String serverToken =
       "AAAAhtQmW4o:APA91bG9X9b9Lt6c5v9oh0-ToW7rLo41X99V_ryGibrFLNW1kxPL4FFQgr2yRB_tKrv1MD9KL2OMZ81Lvr0VIQjZiouOszHhwIh5xNLPCC2_oKIDCOWScOk3tU0R3L_74azs-x3zfEvn";
@@ -51,6 +51,7 @@ class _ChatViewState extends State<ChatView> {
       fcmToken = sharedPreferences.getString("fcmToken");
       statue = sharedPreferences.getString("statue");
       email = sharedPreferences.getString("email");
+      name = sharedPreferences.getString("displayName");
     });
   }
 
@@ -67,7 +68,7 @@ class _ChatViewState extends State<ChatView> {
       decoration: bgDecoration,
       child: Scaffold(
         backgroundColor: Colors.black12,
-        appBar: chatAppBar(context, widget.user),
+        appBar: chatAppBar(context, widget.user,localId,email,name),
         body: Column(
           children: [
             Expanded(
