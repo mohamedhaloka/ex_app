@@ -4,12 +4,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class TermsAndPolicy extends StatelessWidget {
+  TermsAndPolicy({@required this.isSignUp});
+  bool isSignUp;
   @override
   Widget build(BuildContext context) {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-        text: 'By creating an account you agree with our ',
+        text: isSignUp?'By creating an account you agree with our ':'By using app you agree with our ',
         style: TextStyle(color: Colors.grey[600]),
         children: [
           TextSpan(

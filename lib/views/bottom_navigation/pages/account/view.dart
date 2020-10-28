@@ -15,7 +15,7 @@ class AccountView extends StatelessWidget {
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
           AccountButtons(),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
-          TermsAndPolicy()
+          TermsAndPolicy(isSignUp: false,)
         ],
       ),
     );

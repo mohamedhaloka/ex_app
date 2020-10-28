@@ -46,6 +46,7 @@ flutter:
     - assets/images/conversation.png
     - assets/images/log-in.png
     - assets/images/privacy.png
+    - assets/images/chat-wallpaper.jpg
 
   fonts:
     - family: Bosca

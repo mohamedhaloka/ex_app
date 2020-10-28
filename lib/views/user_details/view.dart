@@ -86,7 +86,7 @@ class UserDetailsView extends StatelessWidget {
     showDialog(
         context: context,
         builder: (context) => CupertinoAlertDialog(
-              title: Text("Ok, Do you want delete this chat?"),
+              title: Text("Ok, Do you want delete this chat with your report?"),
               actions: [
                 FlatButton(
                     onPressed: () {
@@ -130,6 +130,11 @@ class UserDetailsView extends StatelessWidget {
                           duration: ToastDuration.long);
                     },
                     child: Text("No")),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("Cancel")),
               ],
             ));
   }

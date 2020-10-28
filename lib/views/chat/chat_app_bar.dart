@@ -8,7 +8,15 @@ import '../../const.dart';
 chatAppBar(context, User user, localId, email, name) {
   return AppBar(
     elevation: 0.0,
-    backgroundColor: Colors.transparent,
+    backgroundColor: secondaryColor,
+    flexibleSpace: Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              colors: [Color(0xff131619), Color(0xff0b0d0f)],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              tileMode: TileMode.mirror)),
+    ),
     title: GestureDetector(
       onTap: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => UserDetailsView(user, localId, email, name))),

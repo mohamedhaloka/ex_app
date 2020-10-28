@@ -12,81 +12,69 @@ class UserChatsFunctions {
   showUserDialog(context, User userData, localId, email, name) {
     showDialog(
         context: context,
-        builder: (context) => LayoutBuilder(builder: (context, constrant) {
-              print(constrant.maxWidth);
-              return AlertDialog(
-                contentPadding: EdgeInsets.all(0),
-                content: Container(
-                  height: 300,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(userData.photo),
-                          fit: BoxFit.cover)),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        child: Container(
-                          width: constrant.maxWidth - 80,
-                          height: 40,
-                          color: Colors.black45,
-                        ),
-                        bottom: 0,
+        builder: (context) => AlertDialog(
+              contentPadding: EdgeInsets.all(0),
+              content: Container(
+                height: 300,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(userData.photo),
+                        fit: BoxFit.cover)),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      child: Container(
+                        width: customWidth(context, 1),
+                        height: 40,
+                        color: Colors.black45,
                       ),
-                      Positioned(
-                        bottom: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: Container(
-                            width: constrant.maxWidth - 85,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(userData.name),
-                                CustomSizedBox(wedNum: 0.1, heiNum: 0.0),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(Icons.message),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Store().updateUsersChatMessages(
-                                            localId, userData.id);
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) => ChatView(
-                                                      user: userData,
-                                                    )));
-                                      },
-                                      color: accentColor,
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.info_outline_rounded),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    UserDetailsView(
-                                                        userData,
-                                                        localId,
-                                                        name,
-                                                        email)));
-                                      },
-                                      color: accentColor,
-                                    ),
-                                  ],
-                                )
-                              ],
+                      bottom: 0,
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(userData.name),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.message),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Store().updateUsersChatMessages(
+                                    localId, userData.id);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ChatView(
+                                          user: userData,
+                                        )));
+                              },
+                              color: secondaryColor,
                             ),
-                          ),
+                            IconButton(
+                              icon: Icon(Icons.info_outline_rounded),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => UserDetailsView(
+                                        userData, localId, name, email)));
+                              },
+                              color: secondaryColor,
+                            ),
+                          ],
                         ),
-                        // bottom: 0,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            }));
+              ),
+            ));
   }
 
   openChatDialog(context, chatUserId, localId) {

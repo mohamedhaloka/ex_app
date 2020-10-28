@@ -87,7 +87,9 @@ class _SignUpFormState extends State<SignUpForm> {
             fillColors: [accentColor, subAccentColor],
           ),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.03),
-          TermsAndPolicy(),
+          TermsAndPolicy(
+            isSignUp: true,
+          ),
           CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
         ],
       ),
