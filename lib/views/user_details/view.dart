@@ -4,6 +4,7 @@ import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/bottom_navigation/pages/users_chat/user_chats_functions.dart';
 import 'package:ex/views/bottom_navigation/pages/users_chat/view.dart';
+import 'package:ex/views/bottom_navigation/view.dart';
 import 'package:ex/views/user_details/email_and_statue.dart';
 import 'package:ex/views/user_details/user_details_buttons.dart';
 import 'package:ex/widget/custom_sized_box.dart';
@@ -105,6 +106,10 @@ class UserDetailsView extends StatelessWidget {
                         kFromUserName: name,
                         kReportTime: dateTime
                       });
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BottomNavigationBarView()));
                       Alert.toast(context, "Send report successfully",
                           position: ToastPosition.bottom,
                           duration: ToastDuration.long);

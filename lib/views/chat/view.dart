@@ -96,47 +96,61 @@ class _ChatViewState extends State<ChatView> {
                         user: widget.user,
                         id: widget.user.id,
                         localId: localId)),
-            Container(
-              margin: EdgeInsets.all(10),
-              padding: EdgeInsets.all(10),
-              width: customWidth(context, 1),
-              height: 55,
-              decoration: BoxDecoration(
-                color: Colors.white12,
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        controller: controller,
-                        cursorColor: accentColor,
-                        onSaved: (val) {
-                          setState(() {
-                            message = val;
-                          });
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Type a message",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 0, style: BorderStyle.none)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 0, style: BorderStyle.none))),
-                      ),
-                    ),
+            Column(
+              children: [
+                Visibility(
+                  visible: _uploadedFileURL == null ? false : true,
+                  child: Container(
+                    width: customWidth(context, 1),
+                    height: 100,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage("$_uploadedFileURL"))),
                   ),
-                  drawButton(Icons.attach_file, () {
-                    chooseFile();
-                  }),
-                  drawButton(Icons.send, () {
-                    _sendMessage(context);
-                  }),
-                ],
-              ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(10),
+                  width: customWidth(context, 1),
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: Colors.white12,
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Form(
+                          key: _formKey,
+                          child: TextFormField(
+                            controller: controller,
+                            cursorColor: accentColor,
+                            onSaved: (val) {
+                              setState(() {
+                                message = val;
+                              });
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Type a message",
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 0, style: BorderStyle.none)),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 0, style: BorderStyle.none))),
+                          ),
+                        ),
+                      ),
+                      drawButton(Icons.attach_file, () {
+                        chooseFile();
+                      }),
+                      drawButton(Icons.send, () {
+                        _sendMessage(context);
+                      }),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
