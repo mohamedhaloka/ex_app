@@ -18,7 +18,6 @@ class _SignUpViewState extends State<SignUpView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController =
         AnimationController(duration: Duration(seconds: 2), vsync: this);
