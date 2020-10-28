@@ -2,10 +2,12 @@ import 'package:easy_alert/easy_alert.dart';
 import 'package:ex/const.dart';
 import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
+import 'package:ex/views/bottom_navigation/pages/users_chat/user_chats_functions.dart';
 import 'package:ex/views/bottom_navigation/pages/users_chat/view.dart';
 import 'package:ex/views/user_details/email_and_statue.dart';
 import 'package:ex/views/user_details/user_details_buttons.dart';
 import 'package:ex/widget/custom_sized_box.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 
@@ -63,19 +65,11 @@ class UserDetailsView extends StatelessWidget {
                       tittle: "Report",
                       icon: Icons.report_gmailerrorred_rounded,
                       onTap: () {
-                        Store().storeUserReports(localId,
-                            {kFromUserEmail: email, kFromUserName: name});
-
-                        Store().storeUserReportLogs(localId, {
-                          kToUserEmail: userDetails.email,
-                          kFromUserEmail: email,
-                          kToUserName: userDetails.name,
-                          kFromUserName: name,
-                          kReportTime: dateTime
-                        });
-                        Alert.toast(context, "Send report successfully",
-                            position: ToastPosition.bottom,
-                            duration: ToastDuration.long);
+                        openChatDialog(context, userDetails.id, localId);
+                        Navigator.maybePop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UsersChatView()));
                       },
                     )
                   ],
@@ -86,5 +80,57 @@ class UserDetailsView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  openChatDialog(context, chatUserId, localId) {
+    showDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+              title: Text("Ok, Do you want delete this chat?"),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Store().deleteChat(localId, chatUserId);
+                      Store().deleteChatMessages(
+                        localId,
+                        chatUserId,
+                      );
+                      Store().storeUserReports(localId,
+                          {kFromUserEmail: email, kFromUserName: name});
+                      Store().storeUserReportLogs(localId, {
+                        kToUserEmail: userDetails.email,
+                        kFromUserEmail: email,
+                        kToUserName: userDetails.name,
+                        kFromUserName: name,
+                        kReportTime: dateTime
+                      });
+                      Alert.toast(context, "Send report successfully",
+                          position: ToastPosition.bottom,
+                          duration: ToastDuration.long);
+                    },
+                    child: Text(
+                      "Yes",
+                      style: TextStyle(color: Colors.red[900]),
+                    )),
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Store().storeUserReports(localId,
+                          {kFromUserEmail: email, kFromUserName: name});
+                      Store().storeUserReportLogs(localId, {
+                        kToUserEmail: userDetails.email,
+                        kFromUserEmail: email,
+                        kToUserName: userDetails.name,
+                        kFromUserName: name,
+                        kReportTime: dateTime
+                      });
+                      Alert.toast(context, "Send report successfully",
+                          position: ToastPosition.bottom,
+                          duration: ToastDuration.long);
+                    },
+                    child: Text("No")),
+              ],
+            ));
   }
 }
