@@ -73,14 +73,14 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
         ? Container(
             width: customWidth(context, 1),
             height: 220,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CircularProgressIndicator(),
-          Text("Loading, your profile photo is uploading")
-        ],
-      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                Text("Loading, your profile photo is uploading")
+              ],
+            ),
           )
         : Stack(
             children: [
