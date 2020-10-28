@@ -42,6 +42,7 @@ class _ChatViewState extends State<ChatView> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
   File _image;
+  bool _loading = false;
   var dateTime = DateTime.now();
   getLocalId() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -81,8 +82,20 @@ class _ChatViewState extends State<ChatView> {
         body: Column(
           children: [
             Expanded(
-                child: ChatBody(
-                    user: widget.user, id: widget.user.id, localId: localId)),
+                child: _loading
+                    ? Container(
+                        child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(),
+                          Text("Loading.. your photo uploading now")
+                        ],
+                      ))
+                    : ChatBody(
+                        user: widget.user,
+                        id: widget.user.id,
+                        localId: localId)),
             Container(
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
@@ -207,6 +220,7 @@ class _ChatViewState extends State<ChatView> {
     await ImagePicker.pickImage(source: ImageSource.gallery).then((image) {
       setState(() {
         _image = image;
+        _loading = true;
       });
       uploadFile();
     });
@@ -225,6 +239,7 @@ class _ChatViewState extends State<ChatView> {
       });
       print(fileURL);
       print(_uploadedFileURL);
+      _loading = false;
       Alert.toast(context, "Your Photo has been uploaded",
           position: ToastPosition.center, duration: ToastDuration.long);
     });
