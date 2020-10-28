@@ -2,6 +2,7 @@ import 'package:ex/services/store.dart';
 import 'package:ex/views/bottom_navigation/view.dart';
 import 'package:ex/views/sign_up/sign_up_controller.dart';
 import 'package:ex/views/sign_up/sign_up_model.dart';
+import 'package:ex/views/sign_up/terms_policy.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:ex/widget/register_button.dart';
 import 'package:ex/widget/register_text_field.dart';
@@ -85,6 +86,9 @@ class _SignUpFormState extends State<SignUpForm> {
             },
             fillColors: [accentColor, subAccentColor],
           ),
+          CustomSizedBox(wedNum: 0.0, heiNum: 0.03),
+          TermsAndPolicy(),
+          CustomSizedBox(wedNum: 0.0, heiNum: 0.02),
         ],
       ),
     );

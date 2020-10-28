@@ -28,6 +28,7 @@ dependencies:
   firebase_messaging:
   url_launcher:
   share:
+  flutter_staggered_animations:
 
 dev_dependencies:
   flutter_test:
