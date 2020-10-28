@@ -67,10 +67,6 @@ class UserDetailsView extends StatelessWidget {
                       icon: Icons.report_gmailerrorred_rounded,
                       onTap: () {
                         openChatDialog(context, userDetails.id, localId);
-                        Navigator.maybePop(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UsersChatView()));
                       },
                     )
                   ],
