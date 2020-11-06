@@ -33,7 +33,7 @@ class _AccountHeaderState extends State<AccountHeader> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               cachedNetworkImage(
-                  imgSrc: photo, isCircle: true, width: 40.0, height: 40.0),
+                  imgSrc: photo, width: 40.0, height: 40.0),
               IconButton(
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () async {

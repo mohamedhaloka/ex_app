@@ -224,9 +224,7 @@ class _ChatViewState extends State<ChatView> {
             mePhoto: photo,
             userPhoto: userPhoto,
             newMessage: true,
-            newMessageLocal: false,
-            meOnline: true,
-            userOnline: true);
+            newMessageLocal: false);
         Store().storeMessage(
             localId,
             {
@@ -320,11 +318,5 @@ class _ChatViewState extends State<ChatView> {
     );
 
     return completer.future;
-  }
-  @override
-  void dispose() {
-    super.dispose();
-    Store().updateUsersChatMessagesToMe(localId, widget.user.id,
-        userOnline: false, meOnline: false);
   }
 }

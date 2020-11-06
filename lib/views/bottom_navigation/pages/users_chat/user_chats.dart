@@ -54,7 +54,7 @@ class _UsersChatState extends State<UsersChat> {
                   statue: data[kUserStatue],
                   email: data[kUserEmail],
                   to: data[kToUser],
-                  online: data[kUserOnline],
+                  // online: data[kUserOnline],
                   token: data[kUserFCMToken],
                   id: doc.id));
               userMessageDetails.add(Message(
@@ -120,33 +120,10 @@ class _UsersChatState extends State<UsersChat> {
                                               name,
                                               email);
                                         },
-                                        child: Stack(
-                                          children: [
-                                            cachedNetworkImage(
-                                                height: 60.0,
-                                                width: 60.0,
-                                                imgSrc: user[index].photo,
-                                                isCircle: true),
-                                            Positioned(
-                                              bottom: 0,
-                                              right: 0,
-                                              child: Visibility(
-                                                child: Container(
-                                                  width: 15,
-                                                  height:15,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.green,
-                                                      shape:
-                                                      BoxShape.circle),
-                                                ),
-                                                visible: user[index]
-                                                    .online
-                                                    ? true
-                                                    :false,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        child: cachedNetworkImage(
+                                            height: 60.0,
+                                            width: 60.0,
+                                            imgSrc: user[index].photo),
                                       ),
                                       CustomSizedBox(wedNum: 0.04, heiNum: 0.0),
                                       Expanded(
@@ -163,8 +140,7 @@ class _UsersChatState extends State<UsersChat> {
                                               Text(
                                                 "${user[index].name}",
                                                 style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold,
+                                                    fontWeight: FontWeight.bold,
                                                     fontSize: 16,
                                                     color: subAccentColor),
                                               ),

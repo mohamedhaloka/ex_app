@@ -92,8 +92,7 @@ class _SignInAgainState extends State<SignInAgain>
                         child: cachedNetworkImage(
                             imgSrc: photo,
                             width: 130.0,
-                            height: 130.0,
-                            isCircle: true),
+                            height: 130.0),
                       ),
                       CustomSizedBox(wedNum: 0.0, heiNum: 0.12),
                       Transform(

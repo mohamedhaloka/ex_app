@@ -30,9 +30,7 @@ class Store {
       meStatue,
       userToken,
       newMessageLocal,
-      newMessage,
-      userOnline,
-      meOnline}) async {
+      newMessage}) async {
     print("Done - Store Message");
     await _firebaseFireStore
         .collection(kUserCollection)
@@ -50,7 +48,6 @@ class Store {
       kMessageTime: dateTime,
       kUserPhoto: userPhoto,
       kNewMessage: newMessageLocal,
-      kUserOnline: userOnline
     });
 
     await _firebaseFireStore
@@ -69,7 +66,6 @@ class Store {
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,
       kNewMessage: newMessage,
-      kUserOnline: meOnline
     });
   }
 

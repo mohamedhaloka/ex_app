@@ -85,9 +85,16 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
           )
         : Stack(
             children: [
-              cachedNetworkImage(
-                  imgSrc: _uploadedFileURL == null ? photo : _uploadedFileURL,
-                  isCircle: false),
+              Container(
+                width: customWidth(context, 1),
+                height: 220,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: NetworkImage(
+                      _uploadedFileURL == null ? photo : _uploadedFileURL),
+                  fit: BoxFit.cover,
+                )),
+              ),
               BackdropFilter(
                 filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: Container(
