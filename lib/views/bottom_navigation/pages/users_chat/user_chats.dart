@@ -5,6 +5,7 @@ import 'package:ex/services/store.dart';
 import 'package:ex/views/bottom_navigation/pages/users_chat/user_chats_functions.dart';
 import 'package:ex/views/chat/view.dart';
 import 'package:ex/views/user_details/view.dart';
+import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -119,15 +120,11 @@ class _UsersChatState extends State<UsersChat> {
                                               name,
                                               email);
                                         },
-                                        child: Container(
-                                            width: 60,
-                                            height: 60,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        user[index].photo),
-                                                    fit: BoxFit.cover))),
+                                        child: cachedNetworkImage(
+                                            height: 60.0,
+                                            width: 60.0,
+                                            imgSrc: user[index].photo,
+                                            isCircle: true),
                                       ),
                                       CustomSizedBox(wedNum: 0.04, heiNum: 0.0),
                                       Expanded(

@@ -29,13 +29,18 @@ dependencies:
   url_launcher:
   share:
   flutter_staggered_animations:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^0.1.9
+
+flutter_native_splash:
+  image: assets/images/logo.png
+  color: "060808"
 
 flutter:
-
   uses-material-design: true
 
   assets:

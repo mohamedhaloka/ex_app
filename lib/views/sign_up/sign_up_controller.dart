@@ -50,6 +50,7 @@ class SignUpController {
           .get()
           .then((value) {
         sharedPreferences.setString('photo', value.get(kUserPhoto));
+        sharedPreferences.setString('statue', value.get(kUserStatue));
         print(value.get(kUserPhoto));
       });
       Navigator.of(context).pushReplacement(

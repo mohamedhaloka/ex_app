@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:ex/widget/custom_sized_box.dart';
 import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_alert/easy_alert.dart';
@@ -79,9 +80,10 @@ class _ChatViewState extends State<ChatView> {
       child: Scaffold(
         backgroundColor: Colors.black12,
         appBar: chatAppBar(context, widget.user, localId, email, name),
-        body: Column(
+        body: Stack(
           children: [
-            Expanded(
+            Container(
+              height: customHeight(context, 1),
                 child: _loading
                     ? Container(
                         child: Column(
@@ -96,61 +98,68 @@ class _ChatViewState extends State<ChatView> {
                         user: widget.user,
                         id: widget.user.id,
                         localId: localId)),
-            Column(
-              children: [
-                Visibility(
-                  visible: _uploadedFileURL == null ? false : true,
-                  child: Container(
+            Positioned(
+              bottom: 0,
+              right: 2,
+              left: 2,
+              child: Column(
+                children: [
+                  Visibility(
+                    visible: _uploadedFileURL == null ? false : true,
+                    child: Container(
+                      width: customWidth(context, 1),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage("$_uploadedFileURL"))),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10),
                     width: customWidth(context, 1),
-                    height: 100,
+                    // height: 55,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage("$_uploadedFileURL"))),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(10),
-                  padding: EdgeInsets.all(10),
-                  width: customWidth(context, 1),
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.white12,
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Form(
-                          key: _formKey,
-                          child: TextFormField(
-                            controller: controller,
-                            cursorColor: accentColor,
-                            onSaved: (val) {
-                              setState(() {
-                                message = val;
-                              });
-                            },
-                            decoration: InputDecoration(
-                                hintText: "Type a message",
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 0, style: BorderStyle.none)),
-                                focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 0, style: BorderStyle.none))),
+                      color: Colors.white12,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Form(
+                            key: _formKey,
+                            child: TextFormField(
+                              controller: controller,
+                              cursorColor: accentColor,
+                              onSaved: (val) {
+                                setState(() {
+                                  message = val;
+                                });
+                              },
+                              maxLines: null,
+                              decoration: InputDecoration(
+                                  hintText: "Type a message",
+                                  enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 0, style: BorderStyle.none)),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          width: 0, style: BorderStyle.none))),
+                            ),
                           ),
                         ),
-                      ),
-                      drawButton(Icons.attach_file, () {
-                        chooseFile();
-                      }),
-                      drawButton(Icons.send, () {
-                        _sendMessage(context);
-                      }),
-                    ],
+                        drawButton(Icons.attach_file, () {
+                          chooseFile();
+                        }),
+                        CustomSizedBox(wedNum: 0.01, heiNum: 0.0),
+                        drawButton(Icons.send, () {
+                          _sendMessage(context);
+                        }),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

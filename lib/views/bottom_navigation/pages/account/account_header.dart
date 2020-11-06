@@ -1,4 +1,5 @@
 import 'package:ex/views/sign_in/view.dart';
+import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,15 +31,8 @@ class _AccountHeaderState extends State<AccountHeader> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: subAccentColor,
-                    image: DecorationImage(
-                        image: NetworkImage("$photo"), fit: BoxFit.cover)),
-              ),
+              cachedNetworkImage(
+                  imgSrc: photo, isCircle: true, width: 40.0, height: 40.0),
               IconButton(
                   icon: Icon(Icons.exit_to_app),
                   onPressed: () async {

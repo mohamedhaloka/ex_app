@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:io';
 import 'package:ex/services/store.dart';
+import 'package:ex/widget/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart'; // For File Upload To Firestore
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart'; // For Image Picker
@@ -84,17 +85,9 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
           )
         : Stack(
             children: [
-              Container(
-                width: customWidth(context, 1),
-                height: 220,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image: NetworkImage(_uploadedFileURL == null
-                      ? "$photo"
-                      : "$_uploadedFileURL"),
-                  fit: BoxFit.cover,
-                )),
-              ),
+              cachedNetworkImage(
+                  imgSrc: _uploadedFileURL == null ? photo : _uploadedFileURL,
+                  isCircle: false),
               BackdropFilter(
                 filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: Container(

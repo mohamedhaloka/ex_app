@@ -1,4 +1,5 @@
 import 'package:ex/views/bottom_navigation/view.dart';
+import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:ex/widget/register_button.dart';
 import 'package:flutter/material.dart';
@@ -88,16 +89,11 @@ class _SignInAgainState extends State<SignInAgain>
                             delayedAnimation.value * customWidth(context, 1),
                             0,
                             0),
-                        child: Container(
-                          width: 130,
-                          height: 130,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: accentColor,
-                              image: DecorationImage(
-                                  image: NetworkImage("$photo"),
-                                  fit: BoxFit.cover)),
-                        ),
+                        child: cachedNetworkImage(
+                            imgSrc: photo,
+                            width: 130.0,
+                            height: 130.0,
+                            isCircle: true),
                       ),
                       CustomSizedBox(wedNum: 0.0, heiNum: 0.12),
                       Transform(
