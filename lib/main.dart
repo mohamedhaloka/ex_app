@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'EX Chat',
+        title: 'EXChat',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Cairo",

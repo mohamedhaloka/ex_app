@@ -11,6 +11,7 @@ const String kUserPhoto = "user photo";
 const String kUserName = "user name";
 const String kUserFCMToken = "user token";
 const String kUserStatue = "user statue";
+const String kUserOnline = "user online";
 const String kUserEmail = "user email";
 const String kUserLocalId = "user localId";
 

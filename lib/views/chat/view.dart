@@ -83,7 +83,7 @@ class _ChatViewState extends State<ChatView> {
         body: Stack(
           children: [
             Container(
-              height: customHeight(context, 1),
+                height: customHeight(context, 1),
                 child: _loading
                     ? Container(
                         child: Column(
@@ -121,7 +121,7 @@ class _ChatViewState extends State<ChatView> {
                     // height: 55,
                     decoration: BoxDecoration(
                       color: Colors.white12,
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
                       children: [
@@ -131,6 +131,11 @@ class _ChatViewState extends State<ChatView> {
                             child: TextFormField(
                               controller: controller,
                               cursorColor: accentColor,
+                              onChanged: (val) {
+                                // Store().updateUsersChatMessagesToMe(localId,
+                                //     widget.user.id, {kUserOnline: "typing"});
+                                print(val);
+                              },
                               onSaved: (val) {
                                 setState(() {
                                   message = val;
@@ -154,6 +159,10 @@ class _ChatViewState extends State<ChatView> {
                         CustomSizedBox(wedNum: 0.01, heiNum: 0.0),
                         drawButton(Icons.send, () {
                           _sendMessage(context);
+                        }),
+                        CustomSizedBox(wedNum: 0.01, heiNum: 0.0),
+                        drawButton(Icons.record_voice_over, () {
+                          // _sendMessage(context);
                         }),
                       ],
                     ),
@@ -215,7 +224,9 @@ class _ChatViewState extends State<ChatView> {
             mePhoto: photo,
             userPhoto: userPhoto,
             newMessage: true,
-            newMessageLocal: false);
+            newMessageLocal: false,
+            meOnline: true,
+            userOnline: true);
         Store().storeMessage(
             localId,
             {
@@ -309,5 +320,11 @@ class _ChatViewState extends State<ChatView> {
     );
 
     return completer.future;
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    Store().updateUsersChatMessagesToMe(localId, widget.user.id,
+        userOnline: false, meOnline: false);
   }
 }

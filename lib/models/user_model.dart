@@ -8,6 +8,7 @@ class User {
   String statue;
   String id;
   String token;
+  bool online;
   User(
       {this.email,
       this.name,
@@ -17,5 +18,6 @@ class User {
       this.from,
       this.statue,
       this.token,
+      this.online,
       this.to});
 }

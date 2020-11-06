@@ -30,7 +30,9 @@ class Store {
       meStatue,
       userToken,
       newMessageLocal,
-      newMessage}) async {
+      newMessage,
+      userOnline,
+      meOnline}) async {
     print("Done - Store Message");
     await _firebaseFireStore
         .collection(kUserCollection)
@@ -47,7 +49,8 @@ class Store {
       kUserFCMToken: userToken,
       kMessageTime: dateTime,
       kUserPhoto: userPhoto,
-      kNewMessage: newMessageLocal
+      kNewMessage: newMessageLocal,
+      kUserOnline: userOnline
     });
 
     await _firebaseFireStore
@@ -65,7 +68,8 @@ class Store {
       kUserStatue: meStatue,
       kMessageTime: dateTime,
       kUserPhoto: mePhoto,
-      kNewMessage: newMessage
+      kNewMessage: newMessage,
+      kUserOnline: meOnline
     });
   }
 
@@ -76,6 +80,23 @@ class Store {
         .collection(kUsersChatCollection)
         .doc(anotherUserId)
         .update({kNewMessage: false});
+  }
+
+  updateUsersChatMessagesToMe(localId, anotherUserId,
+      {userOnline, meOnline}) async {
+    await _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(localId)
+        .collection(kUsersChatCollection)
+        .doc(anotherUserId)
+        .update({kUserOnline: userOnline});
+
+    await _firebaseFireStore
+        .collection(kUserCollection)
+        .doc(anotherUserId)
+        .collection(kUsersChatCollection)
+        .doc(localId)
+        .update({kUserOnline: meOnline});
   }
 
   storeMessage(id, data, anotherUserId) async {

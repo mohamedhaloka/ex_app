@@ -17,9 +17,13 @@ chatAppBar(context, User user, localId, email, name) {
               end: Alignment.bottomLeft,
               tileMode: TileMode.mirror)),
     ),
-    title: GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+    title: RaisedButton(
+      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => UserDetailsView(user, localId, email, name))),
+      elevation: 0.0,
+      highlightElevation: 0.0,
+      padding: EdgeInsets.all(0.0),
+      color: Colors.transparent,
       child: Row(
         children: [
           Container(
@@ -31,12 +35,22 @@ chatAppBar(context, User user, localId, email, name) {
                     image: NetworkImage(user.photo), fit: BoxFit.cover)),
           ),
           CustomSizedBox(wedNum: 0.02, heiNum: 0.0),
-          Text(
-            "${user.name}",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: subAccentColor),
+          Column(
+            children: [
+              Text(
+                "${user.name}",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: subAccentColor),
+              ),
+              // Text(
+              //  user.userStatue=="typing"? "typing":"",
+              //   style: TextStyle(
+              //       fontSize: 12,
+              //       color: Colors.white),
+              // ),
+            ],
           ),
         ],
       ),

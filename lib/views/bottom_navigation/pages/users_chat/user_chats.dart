@@ -4,7 +4,6 @@ import 'package:ex/models/user_model.dart';
 import 'package:ex/services/store.dart';
 import 'package:ex/views/bottom_navigation/pages/users_chat/user_chats_functions.dart';
 import 'package:ex/views/chat/view.dart';
-import 'package:ex/views/user_details/view.dart';
 import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../const.dart';
 
 class UsersChat extends StatefulWidget {
@@ -57,6 +54,7 @@ class _UsersChatState extends State<UsersChat> {
                   statue: data[kUserStatue],
                   email: data[kUserEmail],
                   to: data[kToUser],
+                  online: data[kUserOnline],
                   token: data[kUserFCMToken],
                   id: doc.id));
               userMessageDetails.add(Message(
@@ -85,6 +83,8 @@ class _UsersChatState extends State<UsersChat> {
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.all(0),
                     itemBuilder: (context, index) {
+                      // Store().updateUsersChatMessagesToMe(
+                      //     localId, user[index].id, {kUserWhatDoYou: "online"});
                       return AnimationConfiguration.staggeredList(
                           position: index,
                           duration: Duration(milliseconds: 700),
@@ -120,11 +120,33 @@ class _UsersChatState extends State<UsersChat> {
                                               name,
                                               email);
                                         },
-                                        child: cachedNetworkImage(
-                                            height: 60.0,
-                                            width: 60.0,
-                                            imgSrc: user[index].photo,
-                                            isCircle: true),
+                                        child: Stack(
+                                          children: [
+                                            cachedNetworkImage(
+                                                height: 60.0,
+                                                width: 60.0,
+                                                imgSrc: user[index].photo,
+                                                isCircle: true),
+                                            Positioned(
+                                              bottom: 0,
+                                              right: 0,
+                                              child: Visibility(
+                                                child: Container(
+                                                  width: 15,
+                                                  height:15,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.green,
+                                                      shape:
+                                                      BoxShape.circle),
+                                                ),
+                                                visible: user[index]
+                                                    .online
+                                                    ? true
+                                                    :false,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       CustomSizedBox(wedNum: 0.04, heiNum: 0.0),
                                       Expanded(
@@ -141,7 +163,8 @@ class _UsersChatState extends State<UsersChat> {
                                               Text(
                                                 "${user[index].name}",
                                                 style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                                    fontWeight:
+                                                        FontWeight.bold,
                                                     fontSize: 16,
                                                     color: subAccentColor),
                                               ),

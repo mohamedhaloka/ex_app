@@ -13,7 +13,7 @@ Widget cachedNetworkImage({imgSrc,isCircle,width,height})
       height: height,
       decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: subAccentColor,
+          color: Colors.transparent,
           image: DecorationImage(
               image: NetworkImage("$imgSrc"), fit: BoxFit.cover)),
     ):Container(

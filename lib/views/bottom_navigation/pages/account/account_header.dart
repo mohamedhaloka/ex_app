@@ -1,3 +1,4 @@
+import 'package:ex/services/store.dart';
 import 'package:ex/views/sign_in/view.dart';
 import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
