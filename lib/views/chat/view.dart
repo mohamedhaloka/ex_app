@@ -42,9 +42,10 @@ class _ChatViewState extends State<ChatView> {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
+  TextEditingController _controller = TextEditingController();
   File _image;
   bool _loading = false;
-  var dateTime = DateTime.now();
+  var dateTime = Timestamp.now();
   getLocalId() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
@@ -86,14 +87,15 @@ class _ChatViewState extends State<ChatView> {
                 height: customHeight(context, 1),
                 child: _loading
                     ? Container(
+                        width: customWidth(context, 1),
                         child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                          Text("Loading.. your photo uploading now")
-                        ],
-                      ))
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                            Text("Loading.. your photo uploading now")
+                          ],
+                        ))
                     : ChatBody(
                         user: widget.user,
                         id: widget.user.id,
@@ -110,6 +112,7 @@ class _ChatViewState extends State<ChatView> {
                       width: customWidth(context, 1),
                       height: 100,
                       decoration: BoxDecoration(
+                          color: Colors.black45,
                           image: DecorationImage(
                               image: NetworkImage("$_uploadedFileURL"))),
                     ),
@@ -159,10 +162,6 @@ class _ChatViewState extends State<ChatView> {
                         CustomSizedBox(wedNum: 0.01, heiNum: 0.0),
                         drawButton(Icons.send, () {
                           _sendMessage(context);
-                        }),
-                        CustomSizedBox(wedNum: 0.01, heiNum: 0.0),
-                        drawButton(Icons.record_voice_over, () {
-                          // _sendMessage(context);
                         }),
                       ],
                     ),

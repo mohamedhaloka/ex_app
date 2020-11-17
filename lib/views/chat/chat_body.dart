@@ -46,12 +46,13 @@ class _ChatBodyState extends State<ChatBody> {
                 image: doc.data()[kMessageFile],
                 id: doc.id,
                 to: widget.user.id,
-                time: DateFormat('yyyy-MM-dd – kk:mm').format(time.toDate()),
+                time: DateFormat.jm().format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        time.millisecondsSinceEpoch)),
               ));
             }
             return ListView.builder(
               shrinkWrap: true,
-              // reverse: true,
               controller: _scrollController,
               itemBuilder: (context, index) {
                 return Align(

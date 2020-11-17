@@ -29,7 +29,6 @@ dependencies:
   url_launcher:
   share:
   flutter_staggered_animations:
-  audio_recorder:
   cached_network_image:
 
 dev_dependencies:

@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: "Cairo",
-          platform: TargetPlatform.iOS,
+          platform: TargetPlatform.android,
           brightness: Brightness.dark,
           primaryColor: primaryColor,
           accentColor: accentColor,
