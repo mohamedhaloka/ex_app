@@ -1,4 +1,7 @@
 import 'package:ex/views/bottom_navigation/view.dart';
+import 'package:ex/views/sign_in_again/bottom.dart';
+import 'package:ex/views/sign_in_again/header.dart';
+import 'package:ex/views/sign_in_again/photo.dart';
 import 'package:ex/widget/cached_network_image.dart';
 import 'package:ex/widget/custom_sized_box.dart';
 import 'package:ex/widget/register_button.dart';
@@ -60,73 +63,12 @@ class _SignInAgainState extends State<SignInAgain>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Transform(
-                        transform: Matrix4.translationValues(
-                            animation.value * customWidth(context, 1), 0, 0),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Nice to see you again, $name",
-                              style: TextStyle(
-                                  fontFamily: "Bosca",
-                                  fontSize: 39,
-                                  color: subAccentColor,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            Text(
-                              "Look good. Tap on finish to start chating.",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
+                      SignInAgainHeader(name: name, animation: animation),
                       CustomSizedBox(wedNum: 0.0, heiNum: 0.06),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                            delayedAnimation.value * customWidth(context, 1),
-                            0,
-                            0),
-                        child: cachedNetworkImage(
-                            imgSrc: photo,
-                            width: 130.0,
-                            height: 130.0),
-                      ),
+                      SignInAgainPhoto(
+                          photo: photo, delayedAnimation: delayedAnimation),
                       CustomSizedBox(wedNum: 0.0, heiNum: 0.12),
-                      Transform(
-                        transform: Matrix4.translationValues(
-                            muchDelayedAnimation.value *
-                                customWidth(context, 1),
-                            0,
-                            0),
-                        child: RegisterButton(
-                            function: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          BottomNavigationBarView()));
-                            },
-                            fillColors: [accentColor, subAccentColor],
-                            border: Colors.transparent,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Finish",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: primaryColor,
-                                      fontSize: 20),
-                                ),
-                                Icon(
-                                  Icons.check,
-                                  color: primaryColor,
-                                )
-                              ],
-                            )),
-                      )
+                      SignInAgainBottom(muchDelayedAnimation: muchDelayedAnimation)
                     ],
                   ),
                 ),

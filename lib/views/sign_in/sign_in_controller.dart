@@ -22,15 +22,19 @@ class SignInController {
           'email': email,
           'password': password,
         }));
+
     var userData = json.decode(response.body);
+
     print(response.body);
     if (response.statusCode == 200) {
+
       sharedPreferences.setString("displayName", userData['displayName']);
       sharedPreferences.setString('idToken', userData['idToken']);
       sharedPreferences.setString('localId', userData['localId']);
       sharedPreferences.setString('expiresIn', userData['expiresIn']);
       sharedPreferences.setString('email', userData['email']);
       sharedPreferences.setBool("seen", true);
+
       FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
       String _fcmToken = await _firebaseMessaging.getToken();
       sharedPreferences.setString('fcmToken', _fcmToken);
