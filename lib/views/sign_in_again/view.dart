@@ -68,7 +68,8 @@ class _SignInAgainState extends State<SignInAgain>
                       SignInAgainPhoto(
                           photo: photo, delayedAnimation: delayedAnimation),
                       CustomSizedBox(wedNum: 0.0, heiNum: 0.12),
-                      SignInAgainBottom(muchDelayedAnimation: muchDelayedAnimation)
+                      SignInAgainBottom(
+                          muchDelayedAnimation: muchDelayedAnimation)
                     ],
                   ),
                 ),

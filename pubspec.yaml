@@ -29,6 +29,7 @@ dependencies:
   url_launcher:
   share:
   flutter_staggered_animations:
+  shimmer:
   cached_network_image:
 
 dev_dependencies:
